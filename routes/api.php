@@ -5,11 +5,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\MessFeeManagementController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RebateController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentManagementController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -70,13 +70,13 @@ Route::group(['middleware' => 'auth:sanctum'],function () {
             // allocate room
             Route::post('/allocate-room', 'allocateRoom');
             // view all students
-            Route::get('/view-students', 'viewStudents');
+            Route::get('/view-students', 'viewAllStudents');
             // view student by id
-            Route::get('/view-student/{id}', 'viewStudent');
+            Route::get('/view-student/{id}', 'viewStudentById');
             // update student by id
-            Route::put('/update-student/{id}', 'updateStudent');
+            Route::put('/update-student/{id}', 'updateStudentById');
             // delete student by id
-            Route::delete('/delete-student/{id}', 'deleteStudent');
+            Route::delete('/delete-student/{id}', 'deleteStudentById');
         });
 
         // MessFeeManagementController
@@ -128,8 +128,6 @@ Route::group(['middleware' => 'auth:sanctum'],function () {
     Route::group(['middleware' => 'abilities:Student', 'prefix' => 'student'], function () {
         // StudentController
         Route::controller(StudentController::class)->group(function () {
-            // Add student
-            // view all students
             // view student by id
             // update student by id
             // delete student by id
@@ -138,6 +136,9 @@ Route::group(['middleware' => 'auth:sanctum'],function () {
 
 });
 
+
+Route::post('create-order',[PaymentController::class, 'createOrder']);
+Route::post('handle-payment',[PaymentController::class, 'handlePayment']);
 
 /*
 ||--------------------------------------------------------------------------

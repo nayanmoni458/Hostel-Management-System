@@ -14,16 +14,25 @@ return new class extends Migration
     public function up()
     {
         Schema::create('student_fees', function (Blueprint $table) {
-            $table->id('mess_fee_id');
+            $table->id();
+            // basic
+            $table->unsignedBigInteger('mess_fee_id');
             $table->string('student_roll_number');
             $table->enum('status',['pending','paid']);
-            $table->string('razorpay_order_id');
+            $table->decimal('total_fee',10,2);
+
+            // razorpay
+            $table->string('razorpay_order_id')->nullable();
             $table->string('razorpay_payment_id')->nullable();
             $table->string('razorpay_signature')->nullable();
-            $table->string('payment_date');
+            
+            // foreign keys
             $table->foreign('student_roll_number')->references('roll_number')->on('students')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('mess_fee_id')->references('id')->on('mess_fees')->onUpdate('cascade')->onDelete('cascade');
-            $table->timestamps();
+
+            // timestamps of the events
+            $table->timestamp('payment_date');  // when student made the payment
+            $table->timestamps();   // default
         });
     }
 

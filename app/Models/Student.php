@@ -10,6 +10,8 @@ class Student extends Authenticatable
 {
     use HasFactory;
 
+    protected $table = 'students';
+
     protected $primaryKey = 'id';
 
     protected $fillable = [
@@ -19,12 +21,13 @@ class Student extends Authenticatable
         'phone_number',
         'date_of_birth',
         'address',
+        'password'
     ];
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];   
+    // protected $hidden = [
+    //     'password',
+    //     'remember_token',
+    // ];   
 
-    protected $guard = 'student';
+    // protected $guard = 'student';
 }

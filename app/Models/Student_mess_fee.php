@@ -9,14 +9,19 @@ class Student_mess_fee extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'mess_fee_id';
+    protected $table = 'student_fees';
 
-    protected $fillabele = [
+
+    protected $fillable = [
+        'mess_fee_id',
         'student_roll_number',
         'status',
+        'total_fee',
+
         'razorpay_order_id',
         'razorpay_payment_id',
         'razorpay_signature',
-        'payment_date'
+
+        'payment_date',
     ];
 }

@@ -49,9 +49,10 @@ class AssignMessFeeToStudents implements ShouldQueue
                     try {
                         // Insert student fee record for each student
                         Student_mess_fee::create([
-                            'student_roll_number' => $student->roll_number,
                             'mess_fee_id' => $this->messFee->id,
+                            'student_roll_number' => $student->roll_number,
                             'status' => 'pending',
+                            'total_fee' => $this->messFee->total_fee
                         ]);
                     } catch (Throwable $e) {
                         // Log the error for individual student insertion
